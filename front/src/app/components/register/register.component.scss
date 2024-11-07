@@ -1,0 +1,72 @@
+.register {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #ffffff;
+  padding: 20px;
+  margin-top: 10px;
+}
+
+.back-arrow {
+  color: #000000;
+  font-size: 2em;
+  font-weight: bold;
+  text-decoration: none;
+  cursor: pointer;
+  display: inline-block;
+  line-height: 1;
+  font-family: Arial, sans-serif;
+  align-self: flex-start;
+  margin-left: 10px;
+}
+
+.signup-button {
+  background-color: #6c4ed9;
+  color: white;
+  margin-top: 10px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+}
+
+mat-form-field {
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.alert {
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+
+.alert-danger {
+  color: #721c24;
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .register {
+    padding: 15px;
+    margin-top: 5px;
+  }
+
+  .back-arrow {
+    font-size: 2.2em;
+    margin-left: 0;
+  }
+
+  form {
+    width: 100%;
+  }
+
+  .signup-button {
+    width: 100%;
+  }
+}
