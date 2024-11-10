@@ -1,0 +1,21 @@
+<div class="profile-container">
+  <h1>Profil utilisateur</h1>
+
+  <form (submit)="onSaveProfile()">
+    <label for="username">Nom d'utilisateur:</label>
+    <input type="text" id="username" [(ngModel)]="username" name="username" required>
+
+    <label for="email">Adresse e-mail:</label>
+    <input type="email" id="email" [(ngModel)]="email" name="email" required>
+
+    <button type="submit">Sauvegarder</button>
+  </form>
+
+  <div *ngIf="successMessage" class="alert alert-success">{{ successMessage }}</div>
+  <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+
+  <h2>Abonnements</h2>
+  <p>Vous n'avez pas d'abonnements pour le moment.</p>
+
+  <button (click)="logout()">Se déconnecter</button>
+</div>
