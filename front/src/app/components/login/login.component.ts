@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -8,7 +8,7 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
-  identifier: string = '';
+  identifier: string = ''; // Cela peut être un username ou un email
   password: string = '';
   errorMessage: string = '';
 
@@ -16,12 +16,12 @@ export class LoginComponent {
 
   onLogin() {
     this.authService.login(this.identifier, this.password).subscribe(
-      (      response: any) => {
-        console.log('LOGIN successful', response);
-        this.router.navigate(['/login']);
+      (response: any) => {
+        localStorage.setItem('token', response.token); // Stockage du token dans le localStorage
+        this.router.navigate(['/profile']);
       },
-      (      error: any) => {
-        this.errorMessage = error.error;
+      (error) => {
+        this.errorMessage = error.error?.message || 'Erreur inconnue';
       }
     );
   }
