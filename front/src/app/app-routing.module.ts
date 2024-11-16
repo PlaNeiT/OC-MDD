@@ -8,6 +8,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { ThemeListComponent } from './components/theme-list/theme-list.component';
 import { AuthGuard } from './guards/auth.guard';
 import { ProfileComponent } from "./components/profile/profile.component";
+import {ArticlesComponent} from "./components/articles/articles.component";
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -15,7 +16,8 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
-  { path: 'themes', component: ThemeListComponent }
+  { path: 'articles', component: ArticlesComponent, canActivate: [AuthGuard] },
+  { path: 'themes', component: ThemeListComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({

@@ -19,6 +19,7 @@ import {NgOptimizedImage} from "@angular/common";
 import { HeaderComponent } from './header/header.component';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { ProfileComponent } from './components/profile/profile.component';
+import { ArticlesComponent } from './components/articles/articles.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,6 +30,7 @@ import { ProfileComponent } from './components/profile/profile.component';
     ThemeListComponent,
     HeaderComponent,
     ProfileComponent,
+    ArticlesComponent,
   ],
   imports: [
     BrowserModule,

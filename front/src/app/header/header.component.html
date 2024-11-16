@@ -2,10 +2,10 @@
   <img ngSrc="/assets/logo_p6.png" alt="MDD Logo" class="logo" width="695" height="401" priority>
 
   <div class="navigation" *ngIf="isLoggedIn && !isMobile">
-    <button routerLink="/articles">
+    <button routerLink="/articles" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
       Articles
     </button>
-    <button routerLink="/themes">
+    <button routerLink="/themes" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
       Themes
     </button>
     <button routerLink="/profile" class="profile">

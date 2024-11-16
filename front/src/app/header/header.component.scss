@@ -30,6 +30,11 @@ button {
   padding: 10px 20px;
 }
 
+button.active {
+  color: #6c4ed9;
+  font-weight: bold;
+}
+
 button:hover {
   background-color: #6c4ed9;
   color: white;
