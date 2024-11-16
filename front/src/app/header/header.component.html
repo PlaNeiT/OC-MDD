@@ -1,3 +1,27 @@
 <div class="header">
   <img ngSrc="/assets/logo_p6.png" alt="MDD Logo" class="logo" width="695" height="401" priority>
+
+  <div class="navigation" *ngIf="isLoggedIn && !isMobile">
+    <button routerLink="/articles">
+      Articles
+    </button>
+    <button routerLink="/themes">
+      Themes
+    </button>
+    <button routerLink="/profile" class="profile">
+      <i class="fa fa-user" aria-hidden="true"></i>
+    </button>
+  </div>
+
+  <div class="burger-menu" (click)="toggleMenu()" *ngIf="isMobile">
+    <i class="fa fa-bars" aria-hidden="true"></i>
+  </div>
+
+  <div class="side-panel" [class.open]="isMenuOpen" *ngIf="isMobile">
+    <button routerLink="/articles">Articles</button>
+    <button routerLink="/themes">Themes</button>
+    <button routerLink="/profile" class="profile">
+      <i class="fa fa-user" aria-hidden="true"></i>
+    </button>
+  </div>
 </div>

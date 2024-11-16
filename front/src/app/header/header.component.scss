@@ -3,8 +3,8 @@
   padding: 10px 20px;
   display: flex;
   align-items: center;
-  border-bottom: 3px solid #ddd;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-bottom: 3px solid #282727;
+  justify-content: space-between;
 }
 
 .logo {
@@ -13,13 +13,106 @@
   margin-left: 10px;
 }
 
+.navigation {
+  display: flex;
+  gap: 20px;
+}
+
+button {
+  background-color: transparent;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  color: black;
+  border: none;
+  border-radius: 25px;
+  padding: 10px 20px;
+}
+
+button:hover {
+  background-color: #6c4ed9;
+  color: white;
+}
+
+button i {
+  font-size: 18px;
+}
+
+button.profile {
+  border-radius: 50%;
+  background-color: #f0f0f0;
+  padding: 15px;
+  border: 2px solid #6c4ed9;
+}
+
+button.profile:hover {
+  background-color: #6c4ed9;
+  color: white;
+}
+
+.burger-menu {
+  display: none;
+}
+
 @media (max-width: 600px) {
   .header {
     padding: 10px;
-    justify-content: center;
+    justify-content: space-between;  /* Ensure the logo and burger are on opposite sides */
   }
 
   .logo {
     width: 120px;
+    margin-left: 0; /* Align the logo to the left */
+  }
+
+  .navigation {
+    display: none; /* Hide navigation in mobile view */
+  }
+
+  .burger-menu {
+    display: block;
+    cursor: pointer;
+    padding: 10px;
+  }
+
+  .side-panel {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 60%;
+    height: 100vh;
+    background-color: #ffffff;
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+    transition: transform 0.3s ease;
+    transform: translateX(100%);
+    z-index: 9999;
+  }
+
+  .side-panel.open {
+    transform: translateX(0);
+  }
+
+  .side-panel button {
+    margin-bottom: 20px;
+    font-size: 18px;
+    width: 80%;
+  }
+
+  .side-panel .profile {
+    position: absolute;
+    bottom: 20px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #6c4ed9;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }
