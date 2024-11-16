@@ -20,6 +20,8 @@ import { HeaderComponent } from './header/header.component';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { ProfileComponent } from './components/profile/profile.component';
 import { ArticlesComponent } from './components/articles/articles.component';
+import { CreateArticleComponent } from './components/articles/create-article/create-article.component';
+import { ReadArticleComponent } from './components/articles/read-article/read-article.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,6 +33,8 @@ import { ArticlesComponent } from './components/articles/articles.component';
     HeaderComponent,
     ProfileComponent,
     ArticlesComponent,
+    CreateArticleComponent,
+    ReadArticleComponent,
   ],
   imports: [
     BrowserModule,
