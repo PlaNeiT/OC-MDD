@@ -1,22 +1,24 @@
 package com.openclassrooms.mddapi.services;
 
-import java.util.List;
-
-import org.springframework.stereotype.Service;
-
+import com.openclassrooms.mddapi.dto.ThemeDTO;
 import com.openclassrooms.mddapi.models.Theme;
 import com.openclassrooms.mddapi.repositories.ThemeRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ThemeService {
 
-    private final ThemeRepository themeRepository;
+    @Autowired
+    private ThemeRepository themeRepository;
 
-    public ThemeService(ThemeRepository themeRepository) {
-        this.themeRepository = themeRepository;
-    }
-
-    public List<Theme> getAllThemes() {
-        return themeRepository.findAll();
+    public List<ThemeDTO> getAllThemes() {
+        List<Theme> themes = themeRepository.findAll();
+        return themes.stream()
+                .map(theme -> new ThemeDTO(theme.getId(), theme.getName(), theme.getDescription()))
+                .collect(Collectors.toList());
     }
 }

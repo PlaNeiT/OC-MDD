@@ -1,13 +1,12 @@
 package com.openclassrooms.mddapi.controllers;
 
-import java.util.List;
-
+import com.openclassrooms.mddapi.dto.ThemeDTO;
+import com.openclassrooms.mddapi.services.ThemeService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.openclassrooms.mddapi.models.Theme;
-import com.openclassrooms.mddapi.services.ThemeService;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/themes")
@@ -15,12 +14,13 @@ public class ThemeController {
 
     private final ThemeService themeService;
 
+    @Autowired
     public ThemeController(ThemeService themeService) {
         this.themeService = themeService;
     }
 
     @GetMapping
-    public List<Theme> getAllThemes() {
+    public List<ThemeDTO> getAllThemes() {
         return themeService.getAllThemes();
     }
 }

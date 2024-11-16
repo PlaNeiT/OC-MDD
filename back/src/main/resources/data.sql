@@ -7,11 +7,12 @@ INSERT INTO users (username, email, password) VALUES
 ('devUser2', 'dev2@example.com', 'hashed_password_2');
 
 -- Insert test themes
-INSERT INTO themes (name) VALUES
-('JavaScript'),
-('Java'),
-('Python'),
-('Web3');
+INSERT INTO themes (name, description) VALUES
+('JavaScript', 'A popular programming language mainly used for web development.'),
+('Java', 'A general-purpose programming language that is class-based and object-oriented.'),
+('Python', 'A high-level programming language known for its readability and broad usage.'),
+('Web3', 'An emerging technology that utilizes blockchain and decentralized applications.');
+
 
 -- Insert test subscriptions
 INSERT INTO subscriptions (user_id, theme_id) VALUES

@@ -16,7 +16,8 @@ USE mdd;
 -- Create the table : themes
 CREATE TABLE IF NOT EXISTS themes (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(50) NOT NULL UNIQUE
+    name VARCHAR(50) NOT NULL UNIQUE,
+    description TEXT
 );
 
 -- Create the table : subscriptions

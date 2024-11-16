@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { ThemeService, Theme } from '../../services/theme.service';
-
+import { ThemeService } from '../../services/theme.service';
+import {ThemeDTO} from "../../dtos/theme-dto";
 @Component({
   selector: 'app-theme-list',
-  templateUrl: './theme-list.component.html',
-  styleUrls: ['./theme-list.component.css']
+  templateUrl: './themes.component.html',
+  styleUrls: ['./themes.component.css']
 })
-export class ThemeListComponent implements OnInit {
-  themes: Theme[] = [];
+export class ThemesComponent implements OnInit {
+  themes: ThemeDTO[] = [];
 
   constructor(private themeService: ThemeService) {}
 

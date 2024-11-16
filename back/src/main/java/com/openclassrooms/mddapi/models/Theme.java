@@ -23,4 +23,6 @@ public class Theme {
     @Column(nullable = false, unique = true, length = 50)
     private String name;
 
+    @Column(nullable = true, length = 255)
+    private String description;
 }

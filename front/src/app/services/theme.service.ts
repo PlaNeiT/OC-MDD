@@ -1,11 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
-export interface Theme {
-  id: number;
-  name: string;
-}
+import { ThemeDTO } from '../dtos/theme-dto';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +11,7 @@ export class ThemeService {
 
   constructor(private http: HttpClient) {}
 
-  getThemes(): Observable<Theme[]> {
-    return this.http.get<Theme[]>(this.apiUrl);
+  getThemes(): Observable<ThemeDTO[]> {
+    return this.http.get<ThemeDTO[]>(this.apiUrl);
   }
 }

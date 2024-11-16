@@ -14,7 +14,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { AuthChoiceComponent } from './components/auth-choice/auth-choice.component';
-import { ThemeListComponent } from './components/theme-list/theme-list.component';
+import { ThemesComponent } from './components/themes/themes.component';
 import {NgOptimizedImage} from "@angular/common";
 import { HeaderComponent } from './header/header.component';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
@@ -29,7 +29,7 @@ import { ReadArticleComponent } from './components/articles/read-article/read-ar
     AuthChoiceComponent,
     LoginComponent,
     RegisterComponent,
-    ThemeListComponent,
+    ThemesComponent,
     HeaderComponent,
     ProfileComponent,
     ArticlesComponent,
