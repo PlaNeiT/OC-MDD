@@ -17,6 +17,8 @@
     <i class="fa fa-bars" aria-hidden="true"></i>
   </div>
 
+  <div class="overlay" *ngIf="isMenuOpen" (click)="toggleMenu()"></div>
+
   <div class="side-panel" [class.open]="isMenuOpen" *ngIf="isMobile">
     <button routerLink="/articles">Articles</button>
     <button routerLink="/themes">Themes</button>
