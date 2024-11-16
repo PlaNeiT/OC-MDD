@@ -8,16 +8,19 @@ import com.openclassrooms.mddapi.exceptions.InvalidPasswordException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.annotation.CrossOrigin;
+import com.openclassrooms.mddapi.security.JwtUtil;
 
-@CrossOrigin(origins = "http://localhost:4200")
+import org.springframework.web.bind.annotation.*;
+
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
 
     @Autowired
     private AuthService authService;
+
+    @Autowired
+    private JwtUtil jwtUtil;
 
     @PostMapping("/register")
     public ResponseEntity<AuthResponseDTO> register(@RequestBody User user) {
@@ -49,7 +52,8 @@ public class AuthController {
     public ResponseEntity<AuthResponseDTO> updateUser(@RequestBody User user, @RequestHeader("Authorization") String token) {
         try {
             authService.updateUser(user, token);
-            AuthResponseDTO response = new AuthResponseDTO("Utilisateur mis à jour avec succès");
+            String newToken = jwtUtil.generateToken(user.getUsername(), user.getEmail());
+            AuthResponseDTO response = new AuthResponseDTO("Utilisateur mis à jour avec succès", newToken);
             return new ResponseEntity<>(response, HttpStatus.OK);
         } catch (UserNotFoundException e) {
             AuthResponseDTO response = new AuthResponseDTO(e.getMessage());
@@ -59,4 +63,5 @@ public class AuthController {
             return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
         }
     }
+
 }

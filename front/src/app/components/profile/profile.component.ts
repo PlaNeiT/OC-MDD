@@ -29,10 +29,12 @@ export class ProfileComponent implements OnInit {
   }
 
   onSaveProfile() {
-    console.log('User to be updated:', this.username, this.email); // Ajoutez ce log
+    console.log('User to be updated:', this.username, this.email);
     this.authService.updateUser(this.username, this.email).subscribe(
-      response => {
+      (response: any) => {
         console.log('Update success:', response);
+        localStorage.setItem('token', response.token);
+        this.successMessage = 'Profil mis à jour avec succès';
         this.router.navigate(['/profile']);
       },
       error => {

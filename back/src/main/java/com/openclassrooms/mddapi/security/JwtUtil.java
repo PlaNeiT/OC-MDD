@@ -16,9 +16,10 @@ public class JwtUtil {
     // 1 an
     private final long validity = 365 * 24 * 60 * 60 * 1000;
 
-    public String generateToken(String username) {
+    public String generateToken(String username, String email) {
         return Jwts.builder()
                 .setSubject(username)
+                .claim("email", email)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + validity))
                 .signWith(SignatureAlgorithm.HS256, secretKey)
@@ -40,6 +41,10 @@ public class JwtUtil {
 
     public String extractUsername(String token) {
         return extractClaims(token).getSubject();
+    }
+
+    public String extractEmail(String token) {
+        return (String) extractClaims(token).get("email");
     }
 
     public boolean isTokenExpired(String token) {

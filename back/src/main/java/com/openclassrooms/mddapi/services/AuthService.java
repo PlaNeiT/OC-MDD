@@ -77,35 +77,33 @@ public class AuthService {
         }
 
         // Si tout est OK, générer le token
-        String token = jwtUtil.generateToken(foundUser.getUsername());
+        String token = jwtUtil.generateToken(foundUser.getUsername(), foundUser.getEmail());
         logger.info("Connexion réussie pour l'utilisateur : {}", foundUser.getUsername());
 
         return new AuthResponseDTO("Login successful", token);
     }
 
 
-
     public void updateUser(User user, String token) {
         String usernameFromToken = jwtUtil.extractUsername(token.substring(7)); // Retire "Bearer "
-        logger.info("Tentative de mise à jour pour l'utilisateur : {}", usernameFromToken); // Ajoutez ce log
+        logger.info("Tentative de mise à jour pour l'utilisateur : {}", usernameFromToken);
 
         User existingUser = userRepository.findByUsername(usernameFromToken);
 
         if (existingUser == null) {
-            logger.error("Utilisateur non trouvé pour le nom d'utilisateur : {}", usernameFromToken); // Ajoutez ce log
+            logger.error("Utilisateur non trouvé pour le nom d'utilisateur : {}", usernameFromToken);
             throw new UserNotFoundException("Utilisateur non trouvé");
         }
 
-        if (user.getUsername() != null) {
-            // Vérification que le username n'est pas déjà pris
+        // Mise à jour des informations de l'utilisateur
+        if (user.getUsername() != null && !user.getUsername().equals(existingUser.getUsername())) {
             if (userRepository.existsByUsername(user.getUsername())) {
                 throw new IllegalArgumentException("Nom d'utilisateur déjà pris");
             }
             existingUser.setUsername(user.getUsername());
         }
 
-        if (user.getEmail() != null) {
-            // Vérification de la validité de l'email et s'il est déjà utilisé
+        if (user.getEmail() != null && !user.getEmail().equals(existingUser.getEmail())) {
             if (!EMAIL_PATTERN.matcher(user.getEmail()).matches()) {
                 throw new IllegalArgumentException("L'email n'est pas valide");
             }
@@ -124,6 +122,7 @@ public class AuthService {
         }
 
         userRepository.save(existingUser);
+        logger.info("Utilisateur mis à jour avec succès pour le nom d'utilisateur : {}", usernameFromToken);
     }
 
 
