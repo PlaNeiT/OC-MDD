@@ -1,23 +1,93 @@
-.articles-page {
-  position: relative;
+.articles-list {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
 }
 
 .create-article-button {
-  position: fixed;
-  left: 20px;
-  top: 20%;
-  transform: translateY(-50%);
   background-color: #6c4ed9;
   color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 10px;
-  font-size: 16px;
+  padding: 12px 24px;
+  border-radius: 5px;
+  text-align: center;
   cursor: pointer;
-  z-index: 9999;
-  transition: background-color 0.3s ease;
+  font-size: 1rem;
+  margin-top: 10px;
+  margin-right: auto;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  border: 2px black;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
 
-  &:hover {
-    background-color: #5a3cb5;
+.create-article-button:hover {
+  background-color: #5a40b5;
+  box-shadow: none;
+}
+
+.sort-button {
+  font-size: 1rem;
+  color: black;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+}
+
+.sort-button .arrow {
+  margin-left: 8px;
+  font-size: 1.2rem;
+}
+
+.sort-button:hover {
+  text-decoration: underline;
+}
+
+/* Grille des articles */
+.articles-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  padding: 20px;
+}
+
+.article-card {
+  cursor: pointer;
+  background-color: #f9f9f9;
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.article-card h3 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #6c4ed9;
+}
+
+.article-card .article-meta {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.article-card .article-meta strong {
+  color: #6c4ed9;
+}
+
+.article-card .article-content {
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  font-size: 1rem;
+  color: #333;
+}
+
+@media (max-width: 768px) {
+  .articles-container {
+    grid-template-columns: 1fr;
   }
 }

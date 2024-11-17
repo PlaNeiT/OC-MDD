@@ -1,1 +1,22 @@
 <app-header></app-header>
+
+<div class="create-article-container">
+  <h1>Créer un nouvel article</h1>
+
+  <form (ngSubmit)="onCreateArticle()">
+    <label for="theme">Sélectionner un thème</label>
+    <select [(ngModel)]="selectedThemeId" name="theme" id="theme" required>
+      <option *ngFor="let theme of themes" [value]="theme.id">
+        {{ theme.name }}
+      </option>
+    </select>
+
+    <label for="title">Titre de l'article</label>
+    <input type="text" id="title" [(ngModel)]="title" name="title" required />
+
+    <label for="content">Contenu de l'article</label>
+    <textarea id="content" [(ngModel)]="content" name="content" required></textarea>
+
+    <button type="submit" class="create-button">Créer</button>
+  </form>
+</div>

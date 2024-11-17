@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ArticleService } from '../../services/article.service';
 
 @Component({
   selector: 'app-articles',
@@ -6,10 +7,41 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./articles.component.scss']
 })
 export class ArticlesComponent implements OnInit {
+  articles: any[] = [];
+  isAscending: boolean = true;
 
-  constructor() { }
+  constructor(private articleService: ArticleService) {}
 
   ngOnInit(): void {
+    this.loadArticles();
   }
 
+  loadArticles(): void {
+    this.articleService.getArticles().subscribe(
+      (response: any) => {
+        this.articles = response;
+        this.sortArticles();
+      },
+      (error) => {
+        console.error('Erreur lors du chargement des articles:', error);
+      }
+    );
+  }
+
+  sortArticles(): void {
+    this.articles.sort((a, b) => {
+      const dateA = new Date(a.createdAt).getTime();
+      const dateB = new Date(b.createdAt).getTime();
+      return this.isAscending ? dateA - dateB : dateB - dateA;
+    });
+  }
+
+  toggleSortOrder(): void {
+    this.isAscending = !this.isAscending;
+    this.sortArticles();
+  }
+
+  onArticleClick(articleId: number): void {
+    console.log('Article ID:', articleId);
+  }
 }

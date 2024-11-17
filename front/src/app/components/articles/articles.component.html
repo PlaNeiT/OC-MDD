@@ -1,16 +1,25 @@
 <app-header></app-header>
-<div class="articles-page">
+
+<div class="articles-list">
   <button class="create-article-button" routerLink="/articles/create">
     Créer un article
   </button>
 
-  <!--
-  <div class="articles-list">
-    <div *ngFor="let article of articles" class="article">
-      <h2>{{ article.title }}</h2>
-      <p>{{ article.content }}</p>
-      <p class="author">Par {{ article.author }}</p>
-    </div>
+  <button class="sort-button" (click)="toggleSortOrder()">
+    Trier par Date
+    <span class="arrow">{{ isAscending ? '↑' : '↓' }}</span>
+  </button>
+</div>
+
+<div class="articles-container">
+  <div *ngFor="let article of articles" class="article-card" (click)="onArticleClick(article.id)">
+    <h3>{{ article.title }}</h3>
+    <p class="article-meta">
+      <strong>Date:</strong> {{ article.createdAt | date: 'short' }}
+      <strong>Auteur:</strong> {{ article.user?.username || 'Auteur inconnu' }}
+    </p>
+    <p class="article-content">
+      <span class="article-text">{{ article.content }}</span>
+    </p>
   </div>
-  -->
 </div>
