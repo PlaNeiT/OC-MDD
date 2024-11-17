@@ -52,7 +52,7 @@ public class AuthController {
     public ResponseEntity<AuthResponseDTO> updateUser(@RequestBody User user, @RequestHeader("Authorization") String token) {
         try {
             authService.updateUser(user, token);
-            String newToken = jwtUtil.generateToken(user.getUsername(), user.getEmail());
+            String newToken = jwtUtil.generateToken(user.getUsername(), user.getEmail(), user.getId());
             AuthResponseDTO response = new AuthResponseDTO("Utilisateur mis à jour avec succès", newToken);
             return new ResponseEntity<>(response, HttpStatus.OK);
         } catch (UserNotFoundException e) {

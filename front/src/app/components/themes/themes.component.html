@@ -1,9 +1,24 @@
 <app-header></app-header>
+
 <div class="themes-container">
   <div class="theme-card" *ngFor="let theme of themes">
     <h3>{{ theme.name }}</h3>
     <p>{{ theme.description }}</p>
-    <button class="subscribe-button">S'abonner</button>
+    <button
+      class="subscribe-button"
+      *ngIf="!theme.isSubscribed"
+      (click)="onSubscribe(theme.id)">
+      S'abonner
+    </button>
+
+    <button
+      class="subscribe-button"
+      *ngIf="theme.isSubscribed"
+      (click)="onUnsubscribe(theme.id)">
+      Se désabonner
+    </button>
+
+
   </div>
 </div>
 

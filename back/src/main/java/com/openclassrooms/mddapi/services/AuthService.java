@@ -77,7 +77,7 @@ public class AuthService {
         }
 
         // Si tout est OK, générer le token
-        String token = jwtUtil.generateToken(foundUser.getUsername(), foundUser.getEmail());
+        String token = jwtUtil.generateToken(foundUser.getUsername(), foundUser.getEmail(), foundUser.getId());
         logger.info("Connexion réussie pour l'utilisateur : {}", foundUser.getUsername());
 
         return new AuthResponseDTO("Login successful", token);
