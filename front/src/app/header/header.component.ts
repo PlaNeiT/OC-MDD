@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-header',
@@ -11,12 +12,23 @@ export class HeaderComponent implements OnInit {
   isMenuOpen: boolean = false;
   isMobile: boolean = false;
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
     this.isLoggedIn = this.authService.isLoggedIn();
     this.checkMobile();
     window.addEventListener('resize', this.checkMobile.bind(this));
+
+    const previousRoute = localStorage.getItem('previousRoute');
+    if (previousRoute) {
+      this.router.navigateByUrl(previousRoute);
+    }
+
+    this.router.events.subscribe((event: any) => {
+      if (event.url) {
+        localStorage.setItem('previousRoute', event.url);
+      }
+    });
   }
 
   toggleMenu() {
@@ -25,5 +37,9 @@ export class HeaderComponent implements OnInit {
 
   checkMobile() {
     this.isMobile = window.innerWidth <= 600;
+  }
+
+  navigateToArticles() {
+    this.router.navigate(['/articles']);
   }
 }

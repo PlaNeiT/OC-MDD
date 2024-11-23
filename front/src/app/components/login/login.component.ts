@@ -17,8 +17,8 @@ export class LoginComponent {
   onLogin() {
     this.authService.login(this.identifier, this.password).subscribe(
       (response: any) => {
-        localStorage.setItem('token', response.token); // Stockage du token dans le localStorage
-        this.router.navigate(['/profile']);
+        localStorage.setItem('token', response.token);
+        this.router.navigate(['/articles']);
       },
       (error) => {
         this.errorMessage = error.error?.message || 'Erreur inconnue';

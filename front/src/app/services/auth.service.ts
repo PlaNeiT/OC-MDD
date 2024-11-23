@@ -60,7 +60,7 @@ export class AuthService {
   checkTokenValidityAndRedirect(): void {
     const token = localStorage.getItem('token');
     if (token && this.isLoggedIn()) {
-      this.router.navigate(['/profile']); // Si token valide
+      this.router.navigate(['/articles']); // Si token valide
     } else if (token && !this.isLoggedIn()) {
       this.router.navigate(['/login']); // Si token expiré ou modifié
     }

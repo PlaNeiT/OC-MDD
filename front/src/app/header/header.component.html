@@ -1,5 +1,5 @@
 <div class="header">
-  <img ngSrc="/assets/logo_p6.png" alt="MDD Logo" class="logo" width="695" height="401" priority>
+  <img ngSrc="/assets/logo_p6.png" alt="MDD Logo" class="logo" width="695" height="401" priority  (click)="navigateToArticles()" >
 
   <div class="navigation" *ngIf="isLoggedIn && !isMobile">
     <button routerLink="/articles" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
