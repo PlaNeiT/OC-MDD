@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.openclassrooms.mddapi.dto.ArticleRequestDTO;
 import com.openclassrooms.mddapi.exceptions.ThemeNotFoundException;
@@ -15,7 +16,6 @@ import com.openclassrooms.mddapi.repositories.ArticleRepository;
 import com.openclassrooms.mddapi.repositories.ThemeRepository;
 import com.openclassrooms.mddapi.repositories.UserRepository;
 import com.openclassrooms.mddapi.security.JwtUtil;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class ArticleService {
@@ -54,5 +54,9 @@ public class ArticleService {
     public List<Article> getAllArticles() {
         return articleRepository.findAll();
     }
-}
 
+    @Transactional(readOnly = true)
+    public Article getArticleById(Long id) {
+        return articleRepository.findById(id).orElseThrow(() -> new RuntimeException("Article non trouvé"));
+    }
+}

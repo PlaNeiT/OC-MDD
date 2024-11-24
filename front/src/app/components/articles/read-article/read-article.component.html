@@ -1,1 +1,43 @@
 <app-header></app-header>
+
+<div class="article-container">
+  <div class="header">
+    <span routerLink="/articles" class="back-arrow">←</span>
+    <h2>{{ article?.title }}</h2>
+  </div>
+
+  <div class="meta">
+    <span><strong>Date:</strong> {{ article?.createdAt | date: 'short' }}</span>
+    <span><strong>Auteur:</strong> {{ article?.user?.username || 'Auteur inconnu' }}</span>
+    <span><strong>Thème:</strong> {{ article?.theme?.name || 'Thème inconnu' }}</span>
+  </div>
+
+  <p class="content"> {{ article?.content }}</p>
+
+  <hr />
+
+  <h3>Commentaires</h3>
+
+  <div *ngFor="let comment of comments" class="comment">
+    <div class="comment-box">
+      <div class="comment-content">
+        {{ comment.content }}
+      </div>
+      <div class="comment-user">
+        {{ comment.user?.username }}
+      </div>
+    </div>
+  </div>
+
+  <div class="comment-input">
+    <textarea [(ngModel)]="newComment" placeholder="Écrivez ici votre commentaire" rows="3"></textarea>
+    <button
+      class="send-button"
+      (click)="addComment()"
+      [disabled]="!newComment"
+      [class.disabled]="!newComment"
+    >
+      <span class="material-icons">send</span>
+    </button>
+  </div>
+</div>

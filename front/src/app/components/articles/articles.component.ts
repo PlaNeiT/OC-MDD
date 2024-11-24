@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ArticleService } from '../../services/article.service';
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-articles',
@@ -10,7 +11,7 @@ export class ArticlesComponent implements OnInit {
   articles: any[] = [];
   isAscending: boolean = true;
 
-  constructor(private articleService: ArticleService) {}
+  constructor(private articleService: ArticleService, private router: Router) {}
 
   ngOnInit(): void {
     this.loadArticles();
@@ -43,5 +44,6 @@ export class ArticlesComponent implements OnInit {
 
   onArticleClick(articleId: number): void {
     console.log('Article ID:', articleId);
+    this.router.navigate([`/articles/${articleId}`]);
   }
 }

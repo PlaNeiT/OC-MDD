@@ -1,0 +1,173 @@
+.article-container {
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+h2 {
+  font-size: 1.8rem;
+  margin: 0;
+}
+
+.meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+.meta span {
+  margin-right: 15px;
+}
+
+.content {
+  font-size: 1.2rem;
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+.comment {
+  margin-bottom: 15px;
+}
+
+.comment-box {
+  padding: 10px;
+  border-radius: 10px;
+  background-color: #f8f8f8;
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.comment-content {
+  color: #333;
+  font-size: 1rem;
+  word-wrap: break-word;
+  margin-top: 10px;
+}
+
+.comment-user {
+  font-weight: bold;
+  color: #6c4ed9;
+  font-size: 0.9rem;
+  position: absolute;
+  top: -0.2px;
+  left: -3rem;
+  white-space: nowrap;
+}
+
+.comment-input {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: #f8f8f8;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  padding: 10px;
+  margin-top: 20px;
+  position: relative;
+}
+
+.comment-input textarea {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  resize: none;
+  background: transparent;
+  outline: none;
+}
+
+.comment-input button {
+  background-color: #6c4ed9;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+}
+
+.comment-input button.disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.comment-input button:hover:not(.disabled) {
+  background-color: #4a3bb5;
+}
+
+.send-button .material-icons {
+  font-size: 24px;
+}
+
+.back-arrow {
+  color: #000000;
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid #ddd;
+  margin: 20px 0;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .article-container {
+    padding: 15px;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  .meta {
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .comment-box {
+    flex-direction: column;
+  }
+
+  .comment-user {
+    top: auto;
+    left: auto;
+    bottom: -30px;
+    right: -5px;
+    margin-bottom: 10px;
+  }
+
+  .comment-input {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .comment-input button {
+    align-self: center;
+  }
+
+  .back-arrow {
+    font-size: 1.2rem;
+  }
+}

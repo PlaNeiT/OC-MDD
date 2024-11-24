@@ -9,6 +9,4 @@ public class ArticleRequestDTO {
     private Long themeId;
     private String title;
     private String content;
-
-
 }

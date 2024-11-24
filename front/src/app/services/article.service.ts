@@ -20,4 +20,9 @@ export class ArticleService {
   getArticles(): Observable<ArticleDTO[]> {
     return this.http.get<ArticleDTO[]>(this.apiUrl);
   }
+
+  getArticle(id: string): Observable<ArticleDTO> {
+    return this.http.get<ArticleDTO>(`${this.apiUrl}/${id}`);
+  }
+
 }
