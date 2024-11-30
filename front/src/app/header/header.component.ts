@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../services/auth.service';
+import {Component, OnInit} from '@angular/core';
+import {AuthService} from '../services/auth.service';
 import {Router} from "@angular/router";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-header',
@@ -11,8 +12,10 @@ export class HeaderComponent implements OnInit {
   isLoggedIn: boolean = false;
   isMenuOpen: boolean = false;
   isMobile: boolean = false;
+  subscription: Subscription = new Subscription();
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router) {
+  }
 
   ngOnInit(): void {
     this.isLoggedIn = this.authService.isLoggedIn();
@@ -24,7 +27,7 @@ export class HeaderComponent implements OnInit {
       this.router.navigateByUrl(previousRoute);
     }
 
-    this.router.events.subscribe((event: any) => {
+    this.subscription = this.router.events.subscribe((event: any) => {
       if (event.url) {
         localStorage.setItem('previousRoute', event.url);
       }

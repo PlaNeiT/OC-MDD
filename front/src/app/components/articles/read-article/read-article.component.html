@@ -2,7 +2,7 @@
 
 <div class="article-container">
   <div class="header">
-    <span routerLink="/articles" class="back-arrow">←</span>
+    <span class="back-arrow" routerLink="/articles">←</span>
     <h2>{{ article?.title }}</h2>
   </div>
 
@@ -14,7 +14,7 @@
 
   <p class="content"> {{ article?.content }}</p>
 
-  <hr />
+  <hr/>
 
   <h3>Commentaires</h3>
 
@@ -32,10 +32,10 @@
   <div class="comment-input">
     <textarea [(ngModel)]="newComment" placeholder="Écrivez ici votre commentaire" rows="3"></textarea>
     <button
-      class="send-button"
       (click)="addComment()"
-      [disabled]="!newComment"
       [class.disabled]="!newComment"
+      [disabled]="!newComment"
+      class="send-button"
     >
       <span class="material-icons">send</span>
     </button>

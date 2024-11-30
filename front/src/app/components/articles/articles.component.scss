@@ -1,10 +1,49 @@
-.articles-list {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
+/* Conteneur principal des articles */
+.articles-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);  /* 2 articles côte à côte sur PC */
+  gap: 20px;
+  padding: 20px;
 }
 
+/* Carte individuelle d'un article */
+.article-card {
+  cursor: pointer;
+  background-color: #f9f9f9;
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Titre de l'article */
+.article-card h3 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #6c4ed9;
+}
+
+/* Meta-data (date, auteur) */
+.article-card .article-meta {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.article-card .article-meta strong {
+  color: #6c4ed9;
+}
+
+/* Contenu de l'article - texte tronqué après 5 lignes */
+.article-card .article-content {
+  display: -webkit-box;
+  -webkit-line-clamp: 5;  /* Limite à 5 lignes */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  font-size: 1rem;
+  color: #333;
+}
+
+/* Boutons de création et tri */
 .create-article-button {
   background-color: #6c4ed9;
   color: white;
@@ -45,49 +84,13 @@
   text-decoration: underline;
 }
 
-/* Grille des articles */
-.articles-container {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
-  padding: 20px;
-}
-
-.article-card {
-  cursor: pointer;
-  background-color: #f9f9f9;
-  padding: 15px;
-  margin-bottom: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-}
-
-.article-card h3 {
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: #6c4ed9;
-}
-
-.article-card .article-meta {
-  font-size: 0.9rem;
-  color: #555;
-}
-
-.article-card .article-meta strong {
-  color: #6c4ed9;
-}
-
-.article-card .article-content {
-  display: -webkit-box;
-  -webkit-line-clamp: 5;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  font-size: 1rem;
-  color: #333;
-}
-
+/* Responsive : Articles en colonne pour mobile */
 @media (max-width: 768px) {
   .articles-container {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr;  /* Un article par ligne */
+  }
+
+  .article-card .article-content {
+    -webkit-line-clamp: 3; /* Réduit le nombre de lignes visibles sur mobile (optionnel) */
   }
 }

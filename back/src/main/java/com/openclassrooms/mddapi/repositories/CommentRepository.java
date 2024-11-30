@@ -8,6 +8,6 @@ import com.openclassrooms.mddapi.models.Comment;
 
 
 public interface CommentRepository extends JpaRepository<Comment, Long> {
-  List<Comment> findByArticleId(Long articleId);
+    List<Comment> findByArticleId(Long articleId);
 }
 

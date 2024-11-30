@@ -1,15 +1,16 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { ThemeDTO } from '../dtos/theme-dto';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {ThemeDTO} from '../dtos/theme-dto';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ThemeService {
-  private apiUrl = 'http://localhost:8080/api/themes';
+  private apiUrl = '/api/themes';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+  }
 
   getThemes(): Observable<ThemeDTO[]> {
     return this.http.get<ThemeDTO[]>(this.apiUrl);

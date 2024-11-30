@@ -1,4 +1,4 @@
-package com.openclassrooms.mddapi.security;
+package com.openclassrooms.mddapi.config;
 
 import java.util.Date;
 

@@ -1,12 +1,20 @@
 package com.openclassrooms.mddapi.dto;
 
-import lombok.Getter;
-import lombok.Setter;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
-@Getter
-@Setter
+import lombok.Data;
+
+@Data
 public class ArticleRequestDTO {
+    @NotNull(message = "Theme ID is required")
     private Long themeId;
+
+    @NotBlank(message = "Title is required")
+    @Size(min = 3, max = 100, message = "Title must be between 3 and 100 characters")
     private String title;
+
+    @NotBlank(message = "Content is required")
     private String content;
 }

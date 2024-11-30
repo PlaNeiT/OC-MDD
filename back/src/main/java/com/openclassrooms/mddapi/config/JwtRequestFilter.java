@@ -1,4 +1,4 @@
-package com.openclassrooms.mddapi.security;
+package com.openclassrooms.mddapi.config;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,10 +11,14 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import io.jsonwebtoken.JwtException;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
+@Component
 public class JwtRequestFilter extends OncePerRequestFilter {
 
     @Autowired
@@ -33,10 +37,9 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             try {
                 username = jwtUtil.extractUsername(jwt);
             } catch (JwtException e) {
-                // Token invalide, log l'erreur et retourne 401 Unauthorized
                 response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                 response.getWriter().write("Token invalide ou modifié");
-                System.out.println("Erreur dans la validation du token : " + e.getMessage());
+                log.error("Erreur dans la validation du token : " + e.getMessage());
                 return;
             }
         }
@@ -46,7 +49,6 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                 UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(username, null, new ArrayList<>());
                 SecurityContextHolder.getContext().setAuthentication(authToken);
             } else {
-                // Token invalide ou expiré
                 response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                 response.getWriter().write("Token invalide ou expiré");
                 return;

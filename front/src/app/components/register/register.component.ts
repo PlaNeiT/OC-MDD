@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
-import { AuthService } from '../../services/auth.service';
-import { Router } from '@angular/router';
+import {Component} from '@angular/core';
+import {AuthService} from '../../services/auth.service';
+import {Router} from '@angular/router';
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-register',
@@ -12,8 +13,10 @@ export class RegisterComponent {
   email: string = '';
   password: string = '';
   errorMessage: string = '';
+  subscription: Subscription = new Subscription();
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router) {
+  }
 
   onRegister() {
     // Validation du format de l'email
@@ -35,7 +38,7 @@ export class RegisterComponent {
       return;
     }
 
-    this.authService.register(this.username, this.email, this.password).subscribe(
+    this.subscription = this.authService.register(this.username, this.email, this.password).subscribe(
       response => {
         console.log('User registered successfully:', response);
         this.router.navigate(['/login']);

@@ -1,29 +1,30 @@
 <div class="header">
-  <img ngSrc="/assets/logo_p6.png" alt="MDD Logo" class="logo" width="695" height="401" priority  (click)="navigateToArticles()" >
+  <img (click)="navigateToArticles()" alt="MDD Logo" class="logo" height="401" ngSrc="/assets/logo_p6.png" priority
+       width="695">
 
-  <div class="navigation" *ngIf="isLoggedIn && !isMobile">
-    <button routerLink="/articles" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+  <div *ngIf="isLoggedIn && !isMobile" class="navigation">
+    <button [routerLinkActiveOptions]="{ exact: true }" routerLink="/articles" routerLinkActive="active">
       Articles
     </button>
-    <button routerLink="/themes" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+    <button [routerLinkActiveOptions]="{ exact: true }" routerLink="/themes" routerLinkActive="active">
       Themes
     </button>
-    <button routerLink="/profile" class="profile">
-      <i class="fa fa-user" aria-hidden="true"></i>
+    <button class="profile" routerLink="/profile">
+      <i aria-hidden="true" class="fa fa-user"></i>
     </button>
   </div>
 
-  <div class="burger-menu" (click)="toggleMenu()" *ngIf="isMobile">
-    <i class="fa fa-bars" aria-hidden="true"></i>
+  <div (click)="toggleMenu()" *ngIf="isMobile" class="burger-menu">
+    <i aria-hidden="true" class="fa fa-bars"></i>
   </div>
 
-  <div class="overlay" *ngIf="isMenuOpen" (click)="toggleMenu()"></div>
+  <div (click)="toggleMenu()" *ngIf="isMenuOpen" class="overlay"></div>
 
-  <div class="side-panel" [class.open]="isMenuOpen" *ngIf="isMobile">
+  <div *ngIf="isMobile" [class.open]="isMenuOpen" class="side-panel">
     <button routerLink="/articles">Articles</button>
     <button routerLink="/themes">Themes</button>
-    <button routerLink="/profile" class="profile">
-      <i class="fa fa-user" aria-hidden="true"></i>
+    <button class="profile" routerLink="/profile">
+      <i aria-hidden="true" class="fa fa-user"></i>
     </button>
   </div>
 </div>

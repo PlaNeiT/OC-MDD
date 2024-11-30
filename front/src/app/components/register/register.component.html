@@ -1,6 +1,6 @@
 <app-header></app-header>
 <div class="register">
-  <span routerLink="/auth-choice" class="back-arrow">←</span>
+  <span class="back-arrow" routerLink="/auth-choice">←</span>
   <h2>Inscription</h2>
 
   <div *ngIf="errorMessage" class="alert alert-danger">
@@ -10,15 +10,15 @@
   <form (submit)="onRegister()">
     <mat-form-field appearance="outline">
       <mat-label>Nom d'utilisateur</mat-label>
-      <input matInput [(ngModel)]="username" name="username" required>
+      <input [(ngModel)]="username" matInput name="username" required>
     </mat-form-field>
     <mat-form-field appearance="outline">
       <mat-label>Adresse e-mail</mat-label>
-      <input matInput [(ngModel)]="email" name="email" type="email" required>
+      <input [(ngModel)]="email" matInput name="email" required type="email">
     </mat-form-field>
     <mat-form-field appearance="outline">
       <mat-label>Mot de passe</mat-label>
-      <input matInput [(ngModel)]="password" name="password" type="password" required>
+      <input [(ngModel)]="password" matInput name="password" required type="password">
     </mat-form-field>
     <button class="signup-button" mat-raised-button type="submit">S'inscrire</button>
   </form>

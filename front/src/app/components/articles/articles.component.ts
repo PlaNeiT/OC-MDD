@@ -1,15 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ArticleService } from '../../services/article.service';
 import { Router } from "@angular/router";
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-articles',
   templateUrl: './articles.component.html',
   styleUrls: ['./articles.component.scss']
 })
-export class ArticlesComponent implements OnInit {
+export class ArticlesComponent implements OnInit, OnDestroy {
   articles: any[] = [];
   isAscending: boolean = true;
+  subscription: Subscription = new Subscription();
 
   constructor(private articleService: ArticleService, private router: Router) {}
 
@@ -18,7 +20,7 @@ export class ArticlesComponent implements OnInit {
   }
 
   loadArticles(): void {
-    this.articleService.getArticles().subscribe(
+    this.subscription = this.articleService.getArticles().subscribe(
       (response: any) => {
         this.articles = response;
         this.sortArticles();
@@ -43,7 +45,10 @@ export class ArticlesComponent implements OnInit {
   }
 
   onArticleClick(articleId: number): void {
-    console.log('Article ID:', articleId);
     this.router.navigate([`/articles/${articleId}`]);
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 }

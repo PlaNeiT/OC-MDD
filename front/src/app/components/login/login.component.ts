@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
-import { AuthService } from '../../services/auth.service';
-import { Router } from '@angular/router';
+import {Component} from '@angular/core';
+import {AuthService} from '../../services/auth.service';
+import {Router} from '@angular/router';
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-login',
@@ -8,14 +9,16 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
-  identifier: string = ''; // Cela peut être un username ou un email
+  identifier: string = '';
   password: string = '';
   errorMessage: string = '';
+  subscription: Subscription = new Subscription();
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router) {
+  }
 
   onLogin() {
-    this.authService.login(this.identifier, this.password).subscribe(
+    this.subscription = this.authService.login(this.identifier, this.password).subscribe(
       (response: any) => {
         localStorage.setItem('token', response.token);
         this.router.navigate(['/articles']);

@@ -1,6 +1,6 @@
 <app-header></app-header>
 <div class="login">
-  <span routerLink="/auth-choice" class="back-arrow">←</span>
+  <span class="back-arrow" routerLink="/auth-choice">←</span>
   <h2>Connexion</h2>
 
   <div *ngIf="errorMessage" class="alert alert-danger">
@@ -10,12 +10,12 @@
   <form (submit)="onLogin()">
     <mat-form-field appearance="outline">
       <mat-label>Email ou Nom d'utilisateur</mat-label>
-      <input matInput [(ngModel)]="identifier" name="identifier" required>
+      <input [(ngModel)]="identifier" matInput name="identifier" required>
     </mat-form-field>
     <mat-form-field appearance="outline">
       <mat-label>Mot de passe</mat-label>
-      <input matInput [(ngModel)]="password" name="password" type="password" required>
+      <input [(ngModel)]="password" matInput name="password" required type="password">
     </mat-form-field>
-    <button mat-raised-button color="primary" type="submit">Se connecter</button>
+    <button color="primary" mat-raised-button type="submit">Se connecter</button>
   </form>
 </div>

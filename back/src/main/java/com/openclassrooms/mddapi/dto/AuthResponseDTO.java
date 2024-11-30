@@ -1,17 +1,14 @@
 package com.openclassrooms.mddapi.dto;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Setter
-@Getter
+@Data
 public class AuthResponseDTO {
     private String message;
     private String token;
     private String error;
 
-    public AuthResponseDTO() {
-    }
+    public AuthResponseDTO() {}
 
     public AuthResponseDTO(String message) {
         this.message = message;

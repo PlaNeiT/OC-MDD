@@ -1,13 +1,20 @@
 package com.openclassrooms.mddapi.dto;
 
-import lombok.Getter;
-import lombok.Setter;
+import javax.validation.constraints.NotBlank;
 
-@Getter
-@Setter
+import lombok.Data;
+import lombok.NonNull;
+
+@Data
 public class ThemeDTO {
+
+    @NonNull
     private Long id;
+
+    @NotBlank(message = "Name is required")
     private String name;
+
+    @NotBlank(message = "Description is required")
     private String description;
 
     public ThemeDTO(Long id, String name, String description) {

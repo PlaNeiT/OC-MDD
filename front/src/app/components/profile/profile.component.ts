@@ -1,20 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { SubscriptionService } from '../../services/subscription.service';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
-import { SubscriptionService } from '../../services/subscription.service';
 import { ThemeDTO } from '../../dtos/theme-dto';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss']
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements OnInit, OnDestroy {
   username: string = '';
   email: string = '';
+  password: string = '';
   errorMessage: string = '';
   successMessage: string = '';
-  subscriptions: ThemeDTO[] = []; // Stocke les abonnements de l'utilisateur
+  subscriptions: ThemeDTO[] = [];
+  subscription: Subscription = new Subscription();
 
   constructor(
     private authService: AuthService,
@@ -31,16 +34,15 @@ export class ProfileComponent implements OnInit {
       if (user) {
         this.username = user.username;
         this.email = user.email;
-        this.loadSubscriptions(); // Charger les abonnements lors de l'initialisation
+        this.loadSubscriptions();
       }
     }
   }
 
-  // Charger les abonnements de l'utilisateur
   loadSubscriptions(): void {
     const token = localStorage.getItem('token');
     if (token) {
-      this.subscriptionService.getUserSubscriptions(token).subscribe(
+      this.subscription = this.subscriptionService.getUserSubscriptions(token).subscribe(
         (subscriptions: ThemeDTO[]) => {
           this.subscriptions = subscriptions;
         },
@@ -51,42 +53,34 @@ export class ProfileComponent implements OnInit {
     }
   }
 
-  // Sauvegarder le profil de l'utilisateur
   onSaveProfile(): void {
-    console.log('User to be updated:', this.username, this.email);
-    this.authService.updateUser(this.username, this.email).subscribe(
+    this.subscription = this.authService.updateUser(this.username, this.email, this.password).subscribe(
       (response: any) => {
-        console.log('Update success:', response);
         localStorage.setItem('token', response.token);
         this.successMessage = 'Profil mis à jour avec succès';
         this.router.navigate(['/profile']);
       },
       (error) => {
-        console.error('Error during update:', error);
         this.errorMessage = error.error?.message || 'Erreur inconnue';
       }
     );
   }
 
-  // Se désabonner du thème
   onUnsubscribe(themeId: number): void {
-    this.subscriptionService.unsubscribe(themeId).subscribe(
-      (response) => {
-        console.log('Unsubscribed:', response);
-        // Mettre à jour l'état du thème pour refléter le désabonnement
-        const theme = this.subscriptions.find(t => t.id === themeId);
-        if (theme) {
-          this.subscriptions = this.subscriptions.filter(t => t.id !== themeId); // Retirer l'abonnement de la liste
-        }
-      },
-      (error) => {
-        console.error('Error unsubscribing:', error);
-      }
-    );
+    this.subscription = this.subscriptionService.unsubscribe(themeId).subscribe(response => {
+      console.log('Unsubscribed:', response);
+      this.subscriptions = this.subscriptions.filter(t => t.id !== themeId);
+    });
   }
 
   logout(): void {
     this.authService.logout();
     this.router.navigate(['/login']);
   }
+
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+
 }

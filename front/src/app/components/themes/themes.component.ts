@@ -1,24 +1,29 @@
-import { Component, OnInit } from '@angular/core';
-import { ThemeService } from '../../services/theme.service';
-import { ThemeDTO } from '../../dtos/theme-dto';
-import { SubscriptionService } from '../../services/subscription.service';
+import {Component, OnInit} from '@angular/core';
+import {ThemeService} from '../../services/theme.service';
+import {ThemeDTO} from '../../dtos/theme-dto';
+import {SubscriptionService} from '../../services/subscription.service';
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-themes',
   templateUrl: './themes.component.html',
-  styleUrls: ['./themes.component.css']
+  styleUrls: ['./themes.component.scss']
 })
 export class ThemesComponent implements OnInit {
   themes: ThemeDTO[] = [];
 
-  constructor(private themeService: ThemeService, private subscriptionService: SubscriptionService) {}
+  subscription: Subscription = new Subscription();
+
+
+  constructor(private themeService: ThemeService, private subscriptionService: SubscriptionService) {
+  }
 
   ngOnInit(): void {
     this.loadThemes();
   }
 
   loadThemes(): void {
-    this.themeService.getThemes().subscribe(themesDTO => {
+    this.subscription = this.themeService.getThemes().subscribe(themesDTO => {
       this.themes = themesDTO;
       this.checkSubscriptions();
     });
@@ -27,7 +32,7 @@ export class ThemesComponent implements OnInit {
   checkSubscriptions(): void {
     const token = localStorage.getItem('token');
     if (token) {
-      this.subscriptionService.getUserSubscriptions(token).subscribe(subscribedThemes => {
+      this.subscription = this.subscriptionService.getUserSubscriptions(token).subscribe(subscribedThemes => {
         this.themes.forEach(theme => {
           theme.isSubscribed = subscribedThemes.some(subscribedTheme => subscribedTheme.id === theme.id);
         });
@@ -44,7 +49,7 @@ export class ThemesComponent implements OnInit {
       return; // Ne fait rien si déjà abonné
     }
 
-    this.subscriptionService.subscribe(themeId).subscribe(response => {
+    this.subscription = this.subscriptionService.subscribe(themeId).subscribe(response => {
       console.log('Subscribed:', response);
       // Mettez à jour l'état du bouton pour refléter l'abonnement
       const theme = this.themes.find(t => t.id === themeId);
@@ -65,7 +70,7 @@ export class ThemesComponent implements OnInit {
 
   // Désabonnement du thème
   onUnsubscribe(themeId: number): void {
-    this.subscriptionService.unsubscribe(themeId).subscribe(response => {
+    this.subscription = this.subscriptionService.unsubscribe(themeId).subscribe(response => {
       console.log('Unsubscribed:', response);
       const theme = this.themes.find(t => t.id === themeId);
       if (theme) {

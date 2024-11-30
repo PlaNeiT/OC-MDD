@@ -4,13 +4,14 @@
   <h1>Profil utilisateur</h1>
 
   <form (submit)="onSaveProfile()" class="profile-form">
-    <input type="text" placeholder="Username" [(ngModel)]="username" name="username" required>
-    <input type="email" placeholder="email@email.fr" [(ngModel)]="email" name="email" required>
+    <input [(ngModel)]="username" name="username" placeholder="Username" required type="text">
+    <input [(ngModel)]="email" name="email" placeholder="email@email.fr" required type="email">
+    <input [(ngModel)]="password" name="password" placeholder="Mot de passe" required type="password">
 
-    <button type="submit" class="save-button">Sauvegarder</button>
+    <button class="save-button" type="submit">Sauvegarder</button>
   </form>
 
-  <button class="logout-button" (click)="logout()">Se déconnecter</button>
+  <button (click)="logout()" class="logout-button">Se déconnecter</button>
 
   <hr>
 
@@ -20,7 +21,7 @@
     <div *ngFor="let theme of subscriptions" class="theme-card">
       <h3>{{ theme.name }}</h3>
       <p>{{ theme.description }}</p>
-      <button class="unsubscribe-button" (click)="onUnsubscribe(theme.id)">Se désabonner</button>
+      <button (click)="onUnsubscribe(theme.id)" class="unsubscribe-button">Se désabonner</button>
     </div>
   </div>
 

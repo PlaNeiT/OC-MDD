@@ -5,18 +5,18 @@
 
   <form (ngSubmit)="onCreateArticle()">
     <label for="theme">Sélectionner un thème</label>
-    <select [(ngModel)]="selectedThemeId" name="theme" id="theme" required>
+    <select [(ngModel)]="selectedThemeId" id="theme" name="theme" required>
       <option *ngFor="let theme of themes" [value]="theme.id">
         {{ theme.name }}
       </option>
     </select>
 
     <label for="title">Titre de l'article</label>
-    <input type="text" id="title" [(ngModel)]="title" name="title" required />
+    <input [(ngModel)]="title" id="title" name="title" required type="text"/>
 
     <label for="content">Contenu de l'article</label>
-    <textarea id="content" [(ngModel)]="content" name="content" required></textarea>
+    <textarea [(ngModel)]="content" id="content" name="content" required></textarea>
 
-    <button type="submit" class="create-button">Créer</button>
+    <button class="create-button" type="submit">Créer</button>
   </form>
 </div>

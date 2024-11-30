@@ -5,14 +5,14 @@
     Créer un article
   </button>
 
-  <button class="sort-button" (click)="toggleSortOrder()">
+  <button (click)="toggleSortOrder()" class="sort-button">
     Trier par Date
     <span class="arrow">{{ isAscending ? '↑' : '↓' }}</span>
   </button>
 </div>
 
 <div class="articles-container">
-  <div *ngFor="let article of articles" class="article-card" (click)="onArticleClick(article.id)">
+  <div (click)="onArticleClick(article.id)" *ngFor="let article of articles" class="article-card">
     <h3>{{ article.title }}</h3>
     <p class="article-meta">
       <strong>Date:</strong> {{ article.createdAt | date: 'short' }}

@@ -1,13 +1,13 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Router} from '@angular/router';
+import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:8080/api/auth';
+  private apiUrl = '/api/auth';
 
   constructor(private http: HttpClient, private router: Router) {
   }
@@ -20,17 +20,20 @@ export class AuthService {
     return this.http.post(`${this.apiUrl}/login`, {username: usernameOrEmail, password});
   }
 
-  updateUser(username: string, email: string): Observable<any> {
-    const token = localStorage.getItem('token');
-    const headers = {Authorization: `Bearer ${token}`};
-    return this.http.put(`${this.apiUrl}/update`, {username, email}, {headers});
+  updateUser(username: string, email: string, password: string): Observable<any> {
+    const updatedUser = {
+      username: username,
+      email: email,
+      password: password || null,
+    };
+    return this.http.put<any>(`${this.apiUrl}/update`, updatedUser);
   }
 
   getUser() {
     const token = localStorage.getItem('token');
     if (token) {
       const payload = JSON.parse(atob(token.split('.')[1]));
-      return { username: payload.sub, email: payload.email, id: payload.id };
+      return {username: payload.sub, email: payload.email, id: payload.id};
     }
     return null;
   }
