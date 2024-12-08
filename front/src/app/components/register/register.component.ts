@@ -18,7 +18,7 @@ export class RegisterComponent {
   constructor(private authService: AuthService, private router: Router) {
   }
 
-  onRegister() {
+  onRegister(): void {
     // Validation du format de l'email
     const emailRegex = /^[A-Za-z0-9+_.-]+@(.+)$/;
     if (!emailRegex.test(this.email)) {

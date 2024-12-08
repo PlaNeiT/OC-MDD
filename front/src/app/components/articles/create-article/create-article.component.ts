@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { ThemeDTO } from '../../../dtos/theme-dto';
 import { ThemeService } from '../../../services/theme.service';
 import { Subscription } from 'rxjs';
+import {ArticleDTO} from "../../../dtos/article-dto";
 
 @Component({
   selector: 'app-create-article',
@@ -41,7 +42,7 @@ export class CreateArticleComponent implements OnInit, OnDestroy {
   onCreateArticle(): void {
     if (this.selectedThemeId && this.title && this.content) {
       this.subscription = this.articleService.createArticle(this.selectedThemeId, this.title, this.content).subscribe(
-        (response) => {
+        (response: ArticleDTO) => {
           console.log('Article created successfully', response);
           this.router.navigate(['/articles']);
         },

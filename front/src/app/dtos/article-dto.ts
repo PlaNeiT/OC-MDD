@@ -3,6 +3,13 @@ export interface ArticleDTO {
   title: string;
   content: string;
   createdAt: string;
-  user: { username: string };
-  theme: { username: string };
+  updatedAt: string;
+  user: {
+    id: number;
+    username: string;
+  };
+  theme: {
+    id: number;
+    name: string;
+  };
 }

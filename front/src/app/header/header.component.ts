@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import {AuthService} from '../services/auth.service';
-import {Router} from "@angular/router";
+import {Router, NavigationEnd} from "@angular/router";
 import {Subscription} from "rxjs";
 
 @Component({
@@ -8,7 +8,7 @@ import {Subscription} from "rxjs";
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
   isLoggedIn: boolean = false;
   isMenuOpen: boolean = false;
   isMobile: boolean = false;
@@ -27,22 +27,28 @@ export class HeaderComponent implements OnInit {
       this.router.navigateByUrl(previousRoute);
     }
 
-    this.subscription = this.router.events.subscribe((event: any) => {
-      if (event.url) {
-        localStorage.setItem('previousRoute', event.url);
+    this.subscription = this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        if (event.url) {
+          localStorage.setItem('previousRoute', event.url);
+        }
       }
     });
   }
 
-  toggleMenu() {
+  toggleMenu(): void {
     this.isMenuOpen = !this.isMenuOpen;
   }
 
-  checkMobile() {
+  checkMobile(): void {
     this.isMobile = window.innerWidth <= 600;
   }
 
-  navigateToArticles() {
+  navigateToArticles(): void {
     this.router.navigate(['/articles']);
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 }

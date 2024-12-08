@@ -2,5 +2,9 @@ export interface CommentDTO {
   id: number;
   content: string;
   createdAt: string;
-  user: { username: string };
+  updatedAt: string;
+  user: {
+    id: number;
+    username: string;
+  };
 }

@@ -12,17 +12,16 @@ export class ArticleService {
   constructor(private http: HttpClient) {
   }
 
-  createArticle(themeId: number, title: string, content: string): Observable<any> {
-    const articleData = { themeId: themeId, title, content };
-    return this.http.post(this.apiUrl, articleData);
+  createArticle(themeId: number, title: string, content: string): Observable<ArticleDTO> {
+    const articleData = { themeId, title, content };
+    return this.http.post<ArticleDTO>(this.apiUrl, articleData);
   }
 
   getArticles(): Observable<ArticleDTO[]> {
     return this.http.get<ArticleDTO[]>(this.apiUrl);
   }
 
-  getArticle(id: string): Observable<ArticleDTO> {
+  getArticle(id: number): Observable<ArticleDTO> {
     return this.http.get<ArticleDTO>(`${this.apiUrl}/${id}`);
   }
-
 }

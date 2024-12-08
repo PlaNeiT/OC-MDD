@@ -2,7 +2,9 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {Observable} from 'rxjs';
-
+import {AuthDto} from '../dtos/auth-dto';
+import {UserDto} from '../dtos/user-dto';
+import {UpdateUserDto} from '../dtos/updateUser-dto';
 @Injectable({
   providedIn: 'root'
 })
@@ -12,24 +14,24 @@ export class AuthService {
   constructor(private http: HttpClient, private router: Router) {
   }
 
-  register(username: string, email: string, password: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/register`, {username, email, password});
+  register(username: string, email: string, password: string): Observable<{ message: string }> {
+    return this.http.post<{ message: string }>(`${this.apiUrl}/register`, { username, email, password });
   }
 
-  login(usernameOrEmail: string, password: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/login`, {username: usernameOrEmail, password});
+  login(usernameOrEmail: string, password: string): Observable<AuthDto> {
+    return this.http.post<AuthDto>(`${this.apiUrl}/login`, { username: usernameOrEmail, password });
   }
 
-  updateUser(username: string, email: string, password: string): Observable<any> {
-    const updatedUser = {
+  updateUser(username: string, email: string, password: string): Observable<UserDto> {
+    const updatedUser: UpdateUserDto = {
       username: username,
       email: email,
       password: password || null,
     };
-    return this.http.put<any>(`${this.apiUrl}/update`, updatedUser);
+    return this.http.put<UserDto>(`${this.apiUrl}/update`, updatedUser);
   }
 
-  getUser() {
+  getUser(): UserDto | null {
     const token = localStorage.getItem('token');
     if (token) {
       const payload = JSON.parse(atob(token.split('.')[1]));
@@ -70,7 +72,7 @@ export class AuthService {
     // Si pas de token, ne redirige pas, laisser l'utilisateur se connecter
   }
 
-  logout() {
+  logout(): void {
     localStorage.removeItem('token');
     this.router.navigate(['/login']);
   }

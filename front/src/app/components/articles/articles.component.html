@@ -16,7 +16,7 @@
     <h3>{{ article.title }}</h3>
     <p class="article-meta">
       <strong>Date:</strong> {{ article.createdAt | date: 'short' }}
-      <strong>Auteur:</strong> {{ article.user?.username || 'Auteur inconnu' }}
+      <strong>Auteur:</strong> {{ article.user.username || 'Auteur inconnu' }}
     </p>
     <p class="article-content">
       <span class="article-text">{{ article.content }}</span>

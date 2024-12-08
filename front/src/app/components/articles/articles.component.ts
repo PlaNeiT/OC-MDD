@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ArticleService } from '../../services/article.service';
 import { Router } from "@angular/router";
 import { Subscription } from 'rxjs';
+import { ArticleDTO } from '../../dtos/article-dto';
 
 @Component({
   selector: 'app-articles',
@@ -9,7 +10,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./articles.component.scss']
 })
 export class ArticlesComponent implements OnInit, OnDestroy {
-  articles: any[] = [];
+  articles: ArticleDTO[] = [];
   isAscending: boolean = true;
   subscription: Subscription = new Subscription();
 
@@ -21,7 +22,7 @@ export class ArticlesComponent implements OnInit, OnDestroy {
 
   loadArticles(): void {
     this.subscription = this.articleService.getArticles().subscribe(
-      (response: any) => {
+      (response: ArticleDTO[]) => {
         this.articles = response;
         this.sortArticles();
       },

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import {ThemeService} from '../../services/theme.service';
 import {ThemeDTO} from '../../dtos/theme-dto';
 import {SubscriptionService} from '../../services/subscription.service';
@@ -9,11 +9,9 @@ import {Subscription} from "rxjs";
   templateUrl: './themes.component.html',
   styleUrls: ['./themes.component.scss']
 })
-export class ThemesComponent implements OnInit {
+export class ThemesComponent implements OnInit, OnDestroy {
   themes: ThemeDTO[] = [];
-
   subscription: Subscription = new Subscription();
-
 
   constructor(private themeService: ThemeService, private subscriptionService: SubscriptionService) {
   }
@@ -40,44 +38,43 @@ export class ThemesComponent implements OnInit {
     }
   }
 
-  // Abonnement au thème
   onSubscribe(themeId: number): void {
-    // Vérification préalable si l'utilisateur est déjà abonné
     const theme = this.themes.find(t => t.id === themeId);
     if (theme && theme.isSubscribed) {
       console.log('Déjà abonné à ce thème');
-      return; // Ne fait rien si déjà abonné
+      return;
     }
 
     this.subscription = this.subscriptionService.subscribe(themeId).subscribe(response => {
       console.log('Subscribed:', response);
-      // Mettez à jour l'état du bouton pour refléter l'abonnement
       const theme = this.themes.find(t => t.id === themeId);
       if (theme) {
-        theme.isSubscribed = true; // Mettez à jour l'état local
+        theme.isSubscribed = true;
       }
     }, error => {
-      // Si erreur "déjà abonné", on passe juste l'état du bouton à "Se désabonner"
       if (error.error && error.error.message === 'Vous êtes déjà abonné à ce thème.') {
         const theme = this.themes.find(t => t.id === themeId);
         if (theme) {
-          theme.isSubscribed = true; // L'utilisateur est déjà abonné, on met à jour l'état
+          theme.isSubscribed = true;
         }
       }
       console.error('Error subscribing:', error);
     });
   }
 
-  // Désabonnement du thème
   onUnsubscribe(themeId: number): void {
     this.subscription = this.subscriptionService.unsubscribe(themeId).subscribe(response => {
       console.log('Unsubscribed:', response);
       const theme = this.themes.find(t => t.id === themeId);
       if (theme) {
-        theme.isSubscribed = false; // Mettez à jour l'état local
+        theme.isSubscribed = false;
       }
     }, error => {
       console.error('Error unsubscribing:', error);
     });
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 }

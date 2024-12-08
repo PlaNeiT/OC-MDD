@@ -2,6 +2,7 @@ import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {ThemeDTO} from "../dtos/theme-dto";
+import { SubscriptionDTO } from "../dtos/subscription-dto";
 
 @Injectable({
   providedIn: 'root'
@@ -19,16 +20,16 @@ export class SubscriptionService {
   }
 
   // S'abonner à un thème
-  subscribe(themeId: number): Observable<any> {
+  subscribe(themeId: number): Observable<SubscriptionDTO> {
     const token = localStorage.getItem('token');
-    const headers = {Authorization: `Bearer ${token}`};
-    return this.http.post(`${this.apiUrl}/subscribe/${themeId}`, {}, {headers});
+    const headers = { Authorization: `Bearer ${token}` };
+    return this.http.post<SubscriptionDTO>(`${this.apiUrl}/subscribe/${themeId}`, {}, { headers });
   }
 
   // Se désabonner d'un thème
-  unsubscribe(themeId: number): Observable<any> {
+  unsubscribe(themeId: number): Observable<SubscriptionDTO> {
     const token = localStorage.getItem('token');
-    const headers = {Authorization: `Bearer ${token}`};
-    return this.http.post(`${this.apiUrl}/unsubscribe/${themeId}`, {}, {headers});
+    const headers = { Authorization: `Bearer ${token}` };
+    return this.http.post<SubscriptionDTO>(`${this.apiUrl}/unsubscribe/${themeId}`, {}, { headers });
   }
 }

@@ -66,6 +66,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     );
   }
 
+
   onUnsubscribe(themeId: number): void {
     this.subscription = this.subscriptionService.unsubscribe(themeId).subscribe(response => {
       console.log('Unsubscribed:', response);
@@ -78,9 +79,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.router.navigate(['/login']);
   }
 
-
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
-
 }
