@@ -1,30 +1,79 @@
-# P6-Full-Stack-reseau-dev
+# P6 Full-Stack Reseau Dev
 
-## Front
+## Project Overview
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.1.3.
+This repository contains a full-stack application split into two parts:
+1. **Frontend**: Built with Angular 14.
+2. **Backend**: A Spring Boot application for handling API requests and managing data.
 
-Don't forget to install your node_modules before starting (`npm install`).
+---
 
-### Development server
+## Prerequisites
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you
-change any of the source files.
+### General Requirements
+- **Node.js**: Version 16 or higher. [Download Node.js](https://nodejs.org/)
+- **Angular CLI**: Version 14.1.3. Install it globally using:
+```bash
+npm install -g @angular/cli@14.1.3
+```
+- Java Development Kit (JDK): Version 17. Ensure JAVA_HOME is properly set.
+- Maven: Version 3.6 or later. Install Maven
+- MySQL Database: Install MySQL server locally or use a cloud-hosted MySQL database.
+- Environment Variables
+- 
+### Backend Configuration
+To configure the backend, modify the application.properties, modify the env variable for it to work.
+```
+# Database Configuration
+DB_USERNAME=your_username
+DB_PASSWORD=your_password
 
-### Build
+# JWT Configuration
+JWT_SECRET=your_secret_key
+JWT_EXPIRATION=3600000
+```
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+### Setting Up the Database
+- Install MySQL
+- Start the MySQL server.
+- run the schema.sql and data.sql from back/src/ressources
 
-### Where to start
+### Execute the backend
+- install backend
+```bash
+cd back
+mvn clean install
+```
+- Run the Backend
+```bash
+mvn spring-boot:run
+```
+The backend server will start at http://localhost:8080.
 
-As you may have seen if you already started the app, a simple home page containing a logo, a title and a button is
-available. If you take a look at its code (in the `home.component.html`) you will see that an external UI library is
-already configured in the project.
+### Execute the frontend
 
-This library is `@angular/material`, it's one of the most famous in the angular ecosystem. As you can see on their
-docs (https://material.angular.io/), it contains a lot of highly customizable components that will help you design your
-interfaces quickly.
+- install frontend
+```bash
+cd front
+npm install
+```
 
-Note: I recommend to use material however it's not mandatory, if you prefer you can get ride of it.
+- Run the frontend
+Start the frontend server:
+```bash
+ng serve
+```
 
-Good luck!
+The frontend application will run at http://localhost:4200.
+
+## API Documentation
+The backend includes Swagger for API documentation. Once the backend server is running, visit the following URL:
+
+http://localhost:8080/swagger-ui/index.html
+
+
+
+
+
+
+
